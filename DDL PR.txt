@@ -1,0 +1,359 @@
+DROP TABLE EMP;
+
+CREATE TABLE EMP(
+    NAME VARCHAR2(50),
+    AGE VARCHAR2(3),
+    EMPID VARCHAR2(4),
+    DEPTNO VARCHAR2(2),
+    DESG VARCHAR2(50)
+);
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('DILIPKUMAR','23','1701','10','ANALYST');
+
+ALTER TABLE EMP ADD CONSTRAINT EMPID PRIMARY KEY (EMPID);
+
+DROP TABLE DEPT;
+
+CREATE TABLE DEPT(
+        EMPID VARCHAR2(4),
+    DEPTNO VARCHAR2(2),
+    LOC VARCHAR2(50)
+);
+
+ALTER TABLE DEPT ADD CONSTRAINT EMP_ID_FK FOREIGN KEY (EMPID) REFERENCES EMP(EMPID); -- ADD FOREIGN KEY USING ALTER COMMAND
+
+INSERT INTO DEPT(EMPID,DEPTNO,LOC) VALUES ('1701','10','COIMBATORE');
+INSERT INTO DEPT(EMPID,DEPTNO,LOC) VALUES ('02','20','KARUR');
+INSERT INTO DEPT(EMPID,DEPTNO,LOC) VALUES ('01','30','TRICHY');
+DESC DEPT;
+DESC EMP;
+
+DROP TABLE DEPT1;
+
+CREATE TABLE DEPT1 AS SELECT * FROM DEPT; -- CREATE IN  A DUPLICATE TABLE SAME AS DEPT
+
+SELECT * FROM DEPT1;
+
+DESC DEPT1;
+
+ALTER TABLE DEPT1 ADD COUNRTY VARCHAR2(50); -- ADD COLUMN USING ALTER COMMAND
+ 
+ALTER TABLE DEPT1 MODIFY COUNRTY VARCHAR2(10); -- MODIFY THE COUNTRY COLUMN SIZE
+
+ALTER TABLE DEPT1 RENAME COLUMN COUNRTY TO COUNTRY; -- RENAME THE COLUMN COUNRTY TO COUNTRY
+
+ALTER TABLE DEPT1 DROP COLUMN COUNTRY; -- DROP A COLUMN COUNTRY 
+
+ALTER TABLE DEPT DISABLE CONSTRAINT EMP_ID_FK; -- DISABLE THE CONSTRAINT USING ALTER COMMAND
+
+ALTER  TABLE EMP DISABLE CONSTRAINT EMPID; -- DISABLE THE CONSTRAINT USING ALTER COMMAND
+
+ALTER TABLE EMP ENABLE CONSTRAINT EMPID; -- ENABLE THE CONSTRAINT USING ALTER COMMAND
+
+ALTER TABLE DEPT ENABLE CONSTRAINT EMP_ID_FK; -- ENABLE THE CONSTRAINT USING ALTER COMMAND
+
+-- NOTE
+
+/* ENABLE THE CONSTRAINTS FOR SINGLE TABLE WE CAN DO IT IN A FIRST STEP, BUT IN A FOREIGN KEY
+   CONSTRAINT MEANS WE FIRST DISABLE THE PARENT TABLE , AFTER THAT WE DISABLE CHILD TABLE*/
+
+--DROP 
+/* WE USED DROP OPTION MEANS TABLE HAS BEEN DELETED(ENTIRE RECORDS WILL BE DELETED), STRUCTURE FO THE TABLE REMAINS THE SAME
+WE CHECK THAT USING DESC COMMAND*/
+DROP TABLE DEPT1;
+DESC DEPT1;
+SELECT * FROM TAB;
+-- TRUNCATE 
+/* WE USED TRUNCATE MEANS ENTRIRE TABLE AND ITS RECORDS WILL BE PERMANENTLY REMOVED FROM DATABASE*/
+TRUNCATE TABLE DEPT1;
+
+
+--SEQUNCE IN ORACLE
+
+CREATE TABLE EMP(
+    NAME VARCHAR2(50),
+    AGE VARCHAR2(3),
+    EMPID VARCHAR2(4),
+    DEPTNO VARCHAR2(2),
+    DESG VARCHAR2(50)
+);
+
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('DILIPKUMAR','23','1701','10','ANALYST');
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('ASWIN','25','1702','10','TESTER');
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('KESAV','26','1704','30','DATA SCIENTIST');
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('HARIKRISHNAN','23','1705','30','DEVELOPER');
+
+
+SELECT * FROM EMP;
+DROP SEQUENCE AGE_SEQ;
+
+CREATE SEQUENCE AGE_SEQ
+START WITH     1
+INCREMENT BY   2
+MAXVALUE       50 
+NOCACHE  
+NOCYCLE;
+
+
+INSERT INTO EMP(NAME,AGE,EMPID,DEPTNO,DESG) VALUES ('SEKAR',AGE_SEQ.NEXTVAL,'1708','10','TESTER');
+
+SELECT * FROM EMP;
+
+DELETE FROM EMP
+WHERE NAME = 'SEKAR';
+
+DROP TABLE DEPT;
+
+CREATE TABLE DEPT(
+    DEPTNO VARCHAR2(50),
+    DEPTNAME VARCHAR2(50)
+);
+
+DROP SEQUENCE DEPTNO;
+
+CREATE SEQUENCE DEPTNO
+START WITH 1
+INCREMENT BY 5
+MAXVALUE 100
+NOCACHE
+NOCYCLE;
+
+SELECT * FROM SEQUENCE DEPTNO;
+
+INSERT INTO DEPT VALUES('5','MECH');
+INSERT INTO DEPT VALUES('7','CIVIL');
+INSERT INTO DEPT VALUES('3','ECE');
+
+SELECT * FROM DEPT;
+
+INSERT INTO DEPT VALUES(DEPTNO.NEXTVAL,'CS');
+INSERT INTO DEPT VALUES(DEPTNO.NEXTVAL,'IT');
+INSERT INTO DEPT VALUES(DEPTNO.NEXTVAL,'MBA');
+INSERT INTO DEPT VALUES(DEPTNO.NEXTVAL,'M.COM');
+
+SELECT * FROM DEPT;
+
+INSERT INTO DEPT VALUES('23','MCA')
+    
+INSERT INTO DEPT VALUES('11','BCA');
+
+DELETE FROM DEPT WHERE DEPTNAME = 'CS';
+
+INSERT INTO DEPT VALUES('45','BE');
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+20/07/2023
+-------------
+
+DROP TABLE DEPT;
+
+CREATE TABLE DEPT(
+
+    N_DEPT_NO NUMBER(6),
+
+    V_DEPT_NAME VARCHAR2(50)
+
+);
+
+
+
+CREATE SEQUENCE N_DEPT_NO_SEQ  
+
+ START WITH     1  
+
+ INCREMENT BY   5  
+
+ MAXVALUE       100  
+
+ NOCACHE  
+
+ NOCYCLE;
+
+
+
+INSERT INTO DEPT (N_DEPT_NO, V_DEPT_NAME)
+
+VALUES (N_DEPT_NO_SEQ.NEXTVAL, 'QUALITY ENGINEERING');
+
+INSERT INTO DEPT (N_DEPT_NO, V_DEPT_NAME)
+
+VALUES (N_DEPT_NO_SEQ.NEXTVAL, 'ACCOUNTING');
+
+INSERT INTO DEPT (N_DEPT_NO, V_DEPT_NAME)
+
+VALUES (N_DEPT_NO_SEQ.NEXTVAL, 'DEVELOPMENT');
+
+INSERT INTO DEPT (N_DEPT_NO, V_DEPT_NAME)
+
+VALUES (N_DEPT_NO_SEQ.NEXTVAL, 'AUTOMATION');
+
+INSERT INTO DEPT (N_DEPT_NO, V_DEPT_NAME)
+
+VALUES (N_DEPT_NO_SEQ.NEXTVAL, 'ADMIN');
+
+
+
+SELECT * FROM DEPT;
+
+
+
+SELECT N_DEPT_NO_SEQ.NEXTVAL FROM DUAL;
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+DATA DICTIONARY
+----------------------------
+
+CREATE TABLE STUD(
+    NAME VARCHAR2(25) NOT NULL,
+    AGE VARCHAR2(2) NOT NULL
+);
+
+
+RENAME STUD TO STUDENT;
+
+INSERT INTO STUDENT(NAME,AGE) VALUES ('DILIPKUMAR','23');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('DINESH','22');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('SEENIVASAN','21');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('KESAV','23');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('ASWIN','25');
+
+SELECT * FROM STUDENT;
+
+-- VIEW THE CONSTRANT_NAME,TYPE IN A STUD TABLE (DATA DICTIONARY)
+SELECT CONSTRAINT_NAME,CONSTRAINT_TYPE 
+    FROM USER_CONSTRAINTS 
+    WHERE TABLE_NAME = 'STUD';
+
+-- RESULT
+/*CONSTRAINT_NAME	CONSTRAINT_TYPE
+SYS_C00128567940	C
+SYS_C00128567941	C */
+
+-- DELEETE A PARTICULAR COLUMN USING WHERE CLAUSE
+
+DELETE FROM STUDENT WHERE NAME = 'ASWIN';
+
+/*DATA DICTIONARY
+
+Whenever we are installing oracle s/w internally oracle server is creating some pre-define tables are called “DATA DICTIONARIES”. 
+These data dictionaries are used to store the information about database objects such as Tables, Indexes, Views, Synonyms, etc.
+
+These data dictionaries are supporting the “SELECT” and “DESC” command only. So that data dictionaries are also called “READ ONLY TABLES” 
+in the oracle database. If we want to view all data dictionaries in the oracle database then we need to use the following syntax*/
+ 
+SELECT * FROM DICT;
+
+SELECT  DISTINCT CONSTRAINT_TYPE
+FROM USER_CONSTRAINTS;
+
+/* RESULT  WILL BE 
+
+Result Set 12
+CONSTRAINT_TYPE
+C
+R
+P
+U */ 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE STUD(
+    NAME VARCHAR2(25) NOT NULL,
+    AGE VARCHAR2(2) NOT NULL
+);
+
+SELECT * FROM USER_CONS_COLUMNS; -- IT WAS SHOWING AN COULMN WISE USER CONTRAINTS ( DATA DICTIONARY)
+/*
+Result Set 1
+OWNER	CONSTRAINT_NAME	TABLE_NAME	COLUMN_NAME	POSITION
+SQL_QRTZWXZNKHPYABHQFFGCQMGNJ	SYS_C00128568519	STUD	NAME	 - 
+SQL_QRTZWXZNKHPYABHQFFGCQMGNJ	SYS_C00128568520	STUD	AGE	 - 
+*/
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- FETCHING A SPECIFIC TYPE OF CONSTRAINT
+
+SELECT * FROM USER_CONSTRAINTS
+WHERE CONSTRAINT_TYPE='C';
+
+INSERT INTO STUDENT(NAME,AGE) VALUES ('DILIPKUMAR','23');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('DINESH','22');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('SEENIVASAN','21');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('KESAV','23');
+INSERT INTO STUDENT(NAME,AGE) VALUES ('ASWIN','25');
+
+-- IT WILL GIVES THE NUMBER OF ROWS IN  A TABLE
+
+SELECT COUNT(*) NOOFROWS FROM STUDENT;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* INDEX IN SQL*/
+-------------------------
+/*SQL, an index is a database object that enhances the performance of data retrieval operations on a table. 
+It acts like a data structure, providing a faster way to locate specific rows based on the values in indexed columns.
+By using indexes, the database engine can avoid full table scans and quickly find the desired data
+Here are some key points about indexes in SQL:
+
+Purpose: The primary purpose of an index is to improve the speed of query execution by reducing the time it takes to find and retrieve data.
+
+Structure: An index consists of a set of keys (usually columns) and pointers to the actual data rows. The keys are sorted in a way that
+allows for efficient searching and access.
+
+Types of Indexes: SQL databases offer different types of indexes. The two most common types are:
+
+Clustered Index: Determines the physical order of data rows in the table based on the indexed column(s). Each table can have only one clustered index.
+Non-Clustered Index: Creates a separate structure that maps keys to the corresponding data rows. A table can have multiple non-clustered indexes.
+Creating Indexes: You can create indexes on one or more columns of a table using the CREATE INDEX statement.
+The specific syntax for creating indexes may vary depending on the database system you are using.*/
+
+
+DROP TABLE STUDENT;
+
+CREATE TABLE STUDENT(
+    NAME VARCHAR2(50),
+	ID  NUMBER(3)
+);
+
+SELECT INDEX_NAME,INDEX_TYPE
+FROM USER_INDEXES
+WHERE TABLE_NAME = 'STUDENT';
+
+DROP INDEX ID_INDEX;
+
+CREATE INDEX ID_INDEX ON STUDENT(ID);
+
+INSERT INTO STUDENT (NAME) VALUES ('DILIPKUMAR') ;
+
+UPDATE STUDENT SET ID = 101 WHERE NAME = 'DILIPKUMAR';
+
+SELECT * FROM STUDENT;
+
+INSERT INTO STUDENT (NAME,ID) VALUES ('KRISHNA','102');
+INSERT INTO STUDENT (NAME,ID) VALUES ('HARIKRISHNAN',103);
+INSERT INTO STUDENT (NAME,ID) VALUES ('DARAN','105');
+
+SELECT * FROM STUDENT WHERE ID = 102;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+    

@@ -1,0 +1,39 @@
+--Find Employees with Salaries Higher Than Department Average:
+
+SELECT ENAME,SAL
+FROM EMP E1
+WHERE SAL > (SELECT AVG(SAL)
+    				FROM EMP E2
+    				WHERE E1.DEPTNO = E2.DEPTNO);
+
+--Find Employees with Salaries Above Overall Average:
+
+SELECT ENAME,JOB,SAL
+FROM EMP E1
+WHERE SAL > (SELECT AVG(SAL)
+    					FROM EMP);
+
+--Find Employees with Highest Salary in Each Department:
+
+SELECT EMPNO,ENAME,SAL,DEPTNO,JOB
+FROM EMP E1
+WHERE SAL = (SELECT MAX(SAL)
+    				FROM EMP E2
+    				WHERE E1.DEPTNO = E2.DEPTNO);
+
+--Find Employees Who Joined After Their Manager:
+
+SELECT *
+FROM EMP E1
+WHERE HIREDATE > ALL ( SELECT HIREDATE
+    						FROM EMP 
+    							WHERE EMPNO =E1.MGR );
+
+
+SELECT
+    ENAME,
+    DEPTNO
+FROM
+    EMP E
+WHERE
+    SAL = (SELECT MAX(SAL) FROM EMP WHERE DEPTNO = E.DEPTNO);

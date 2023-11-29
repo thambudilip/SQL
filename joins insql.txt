@@ -1,0 +1,65 @@
+DROP TABLE CRICKET;
+
+CREATE TABLE CRICKET
+(
+    C_ID NUMBER,
+    NAME VARCHAR2(25)
+);
+
+DROP TABLE FOOTBALL;
+CREATE TABLE FOOTBALL
+(
+    F_ID NUMBER,
+    NAME VARCHAR2(25)
+);
+
+insert into cricket(c_id,name) values(1,'DILIPKUMAR');
+insert into cricket(c_id,name) values(2,'KESAV');
+insert into cricket(c_id,name) values(3,'ASWIN');
+insert into cricket(c_id,name) values(4,'HARIKRISHNAN');
+insert into cricket(c_id,name) values(5,'SEENIVASAN');
+
+
+insert into football(f_id,name) values(6,'LAKSHIMARAYANAN');
+insert into football(f_id,name) values(2,'KESAV');
+insert into football(f_id,name) values(8,'ANUB');
+insert into football(f_id,name) values(4,'HARIKRISHNAN');
+insert into football(f_id,name) values(10,'SOUNDHAR');
+
+SELECT * FROM FOOTBALL;
+
+SELECT * FROM CRICKET;
+
+SELECT * FROM CRICKET CROSS JOIN FOOTBALL;
+SELECT * FROM CRICKET INNER JOIN FOOTBALL ON CRICKET.NAME = FOOTBALL.NAME;
+
+SELECT * FROM CRICKET LEFT JOIN FOOTBALL ON CRICKET.NAME = FOOTBALL.NAME;
+
+SELECT * FROM CRICKET RIGHT JOIN FOOTBALL ON CRICKET.NAME = FOOTBALL.NAME;
+
+SELECT * FROM CRICKET  FULL JOIN FOOTBALL ON CRICKET.NAME = FOOTBALL.NAME;
+
+SELECT * FROM CRICKET NATURAL JOIN FOOTBALL;
+
+------------------------------------------------------
+--NATURAL JOIN
+--------------
+
+CREATE TABLE EMP(
+    ENAME VARCHAR2(25),
+    SAL NUMBER
+);
+
+INSERT INTO EMP(ENAME,SAL) VALUES ('DILIPKUMAR',5000);
+INSERT INTO EMP(ENAME,SAL) VALUES ('NITHISH',8000);
+INSERT INTO EMP(ENAME,SAL) VALUES ('HARIKRISHNAN',8000);
+
+
+SELECT * FROM FOOTBALL NATURAL JOIN EMP;
+
+----------------------------------------------------------------------------------------------
+--SELF JOIN
+-----------
+
+/* TABLE BY JOINING ITSELF/*
+
